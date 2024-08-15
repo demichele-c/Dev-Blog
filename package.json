@@ -1,0 +1,13 @@
+{
+  "name": "dev-blog",
+  "version": "1.0.0",
+  "description": "A developer-centric platform where tech enthusiasts can publish their insights, share blog posts, and engage in meaningful discussions through comments.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
