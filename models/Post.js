@@ -1,8 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/config');
 
+// Define the Post model
 class Post extends Model {}
 
+// Initialize the Post model
 Post.init(
   {
     id: {
@@ -22,17 +24,17 @@ Post.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'user',
+        model: 'user',  // Ensure this matches the table name for User
         key: 'id',
       },
     },
   },
   {
     sequelize,
-    timestamps: true,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'post',
+    timestamps: true,       // Automatically add `createdAt` and `updatedAt` fields
+    freezeTableName: true,  // Use the model name as the table name
+    underscored: true,      // Use snake_case for column names
+    modelName: 'post',      // Model name (should be lowercase and match the model file name)
   }
 );
 

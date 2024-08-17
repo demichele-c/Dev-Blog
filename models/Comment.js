@@ -11,30 +11,34 @@ Comment.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    comment_text: {
-      type: DataTypes.STRING,
+    content: { // Updated from `comment_text` to `content` to match your controller and migration
+      type: DataTypes.TEXT, // Changed to TEXT to accommodate longer comments
       allowNull: false,
     },
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'user',
+        model: 'users', // Ensure this matches the model name
         key: 'id',
       },
+      onDelete: 'CASCADE', // Optionally, add cascading behavior
+      allowNull: false,
     },
     post_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'post',
+        model: 'posts', // Ensure this matches the model name
         key: 'id',
       },
+      onDelete: 'CASCADE', // Optionally, add cascading behavior
+      allowNull: false,
     },
   },
   {
     sequelize,
-    timestamps: true,
-    freezeTableName: true,
-    underscored: true,
+    timestamps: true, // Will add `createdAt` and `updatedAt` columns
+    freezeTableName: true, // Prevents Sequelize from pluralizing the table name
+    underscored: true, // Uses snake_case for column names
     modelName: 'comment',
   }
 );

@@ -2,6 +2,8 @@ const { Post } = require('../models');
 const express = require('express');
 const router = express.Router();
 
+// ALL of these routes are PREFIXED with '/api/posts'
+
 // Create a new post
 router.post('/', async (req, res) => {
   try {
