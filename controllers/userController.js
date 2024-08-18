@@ -1,72 +1,59 @@
-const { User } = require('../models');
-const bcrypt = require('bcrypt');
 const express = require('express');
+const bcrypt = require('bcrypt');
+const { User } = require('../models'); // Adjust the path according to your project structure
+
 const router = express.Router();
 
-
-// ALL of these routes are PREFIXE 'api/users/logout'
-// User registration
-router.post('/register', async (req, res) => {  // POST HTTP method --> '/api/users/register/register'
+// Registration handler
+router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
-    
+
     // Check if the username already exists
     const existingUser = await User.findOne({ where: { username } });
     if (existingUser) {
-      return res.status(400).json({ message: 'Username already exists' });
+      return res.status(400).json({ message: 'Username already taken' });
     }
-    
-    // Hash the password and create the new user
+
+    // Hash the password before saving it
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ username, password: hashedPassword });
-    
-    // Save the user ID in the session
-    req.session.user_id = newUser.id;
-    req.session.save(() => {
-      // Send the new user data without password
-      const userWithoutPassword = newUser.toJSON();
-      delete userWithoutPassword.password;
-      res.status(200).json(userWithoutPassword);
+
+    // Create a new user
+    const newUser = await User.create({
+      username,
+      password: hashedPassword,
     });
+
+    res.status(201).json({ id: newUser.id, username: newUser.username });
   } catch (err) {
-    res.status(400).json(err);
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// User login
+// Login handler
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    
+
     // Find the user by username
     const user = await User.findOne({ where: { username } });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
-    
-    // Compare the password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (isPasswordValid) {
-      req.session.user_id = user.id;
-      req.session.save(() => {
-        // Send the user data without password
-        const userWithoutPassword = user.toJSON();
-        delete userWithoutPassword.password;
-        res.status(200).json(userWithoutPassword);
-      });
-    } else {
-      res.status(400).json({ message: 'Invalid credentials' });
-    }
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
 
-// User logout
-router.post('/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.status(204).end();
-  });
+    // Compare the hashed password with the provided password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    // Successful login (You can create a session or a JWT here)
+    res.status(200).json({ id: user.id, username: user.username });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 module.exports = router;
