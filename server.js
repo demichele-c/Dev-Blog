@@ -13,6 +13,14 @@ const hasAuth = require('./utils/auth');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Middleware to log request details
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.originalUrl}`);
+  console.log(`Request Method: ${req.method}`);
+  console.log(`Request Body: ${JSON.stringify(req.body)}`);
+  next();
+});
+
 // Session configuration
 const sess = {
   secret: 'Super secret secret',

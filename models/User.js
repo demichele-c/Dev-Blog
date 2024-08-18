@@ -2,17 +2,13 @@ const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/config');
 
-// Define the User model
-
 class User extends Model {
   // Method to check password validity
-  checkPassword(loginPw) {
-    return bcrypt.compareSync(loginPw, this.password);
+  async checkPassword(loginPw) {
+    console.log("Comparing: ", loginPw, this.password);
+    return await bcrypt.compare(loginPw, this.password);
   }
 }
-  
-//const User = sequelize.define(
-//  'User',
 
 // Initialize the User model
 User.init(
@@ -41,6 +37,7 @@ User.init(
       // Hash password before storing it in the database
       beforeCreate: async (newUserData) => {
         try {
+          console.log("Hashing password for new user: ", newUserData.password);
           newUserData.password = await bcrypt.hash(newUserData.password, 10);
           return newUserData;
         } catch (err) {
@@ -50,7 +47,8 @@ User.init(
       },
       beforeUpdate: async (updatedUserData) => {
         try {
-          if (updatedUserData.password) {
+          if (updatedUserData.password && updatedUserData.changed('password')) {
+            console.log("Hashing password for updated user: ", updatedUserData.password);
             updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
           }
           return updatedUserData;

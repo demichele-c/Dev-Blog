@@ -15,6 +15,12 @@ loginForm.addEventListener('submit', async (event) => {
 
     console.log('Login data:', userData); // Log user data for debugging
 
+    // Check if userData has values
+    if (!userData.username || !userData.password) {
+        alert('Please fill in both fields.');
+        return;
+    }
+
     // Fetch the POST data from the server
     try {
         const response = await fetch('/api/users/login', {
