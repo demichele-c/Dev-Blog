@@ -5,10 +5,9 @@ const path = require('path');
 const userRoutes = require('./controllers/userController');
 const postRoutes = require('./controllers/postController');
 const commentRoutes = require('./controllers/commentController');
-const UserRoutes = require('./controllers/userController'); 
 const sequelize = require('./config/config');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const { Post } = require('./models');
+const { Post, Comment, User } = require('./models'); // Ensure User and Comment are imported
 const hasAuth = require('./utils/auth');
 
 const app = express();
@@ -56,30 +55,73 @@ app.use('/api/comments', commentRoutes);
 // Page routes
 app.get('/', async (req, res) => {
   try {
-    const data = await Post.findAll();
-    res.render('homepage', { posts: data, name: "Tim" });
+    const posts = await Post.findAll({
+      attributes: ['id', 'title', 'createdAt'],
+    });
+    res.render('homepage', { 
+      posts,
+      loggedIn: req.session.userId ? true : false, // Pass loggedIn status
+      title: 'Homepage',
+    });
   } catch (error) {
     console.log("err: ", error);
     res.status(500).send('An error occurred while fetching posts.');
   }
 });
 
-app.get('/dashboard', hasAuth, (req, res) => {
-  res.render('dashboard');
+app.get('/dashboard', hasAuth, async (req, res) => {
+  try {
+    const posts = await Post.findAll({
+      where: { userId: req.session.userId }
+    });
+    res.render('dashboard', { 
+      posts,
+      loggedIn: req.session.userId ? true : false,
+      title: 'Dashboard',
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching dashboard posts.');
+  }
 });
 
-app.get('/post/:id', (req, res) => {
-  res.render('post');
+app.get('/post/:id', async (req, res) => {
+  try {
+    const post = await Post.findByPk(req.params.id, {
+      include: [
+        { model: Comment, include: [User] },
+        User // Include the post creator
+      ]
+    });
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+    res.render('post', {
+      post,
+      loggedIn: req.session.userId ? true : false,
+      title: post.title
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching the post.');
+  }
 });
 
 // Add route for login page
 app.get('/login', (req, res) => {
-  res.render('login'); // Renders the login.handlebars view
+  res.render('login', { loggedIn: req.session.userId ? true : false }); // Pass loggedIn status
 });
 
 // Add route for registration page
 app.get('/register', (req, res) => {
-  res.render('register'); // Renders the register.handlebars view
+  res.render('register', { loggedIn: req.session.userId ? true : false }); // Pass loggedIn status
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/login');
+  });
 });
 
 // Error handling middleware

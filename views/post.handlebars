@@ -1,23 +1,17 @@
-<h1>{{title}}</h1>
-<p>{{content}}</p>
-<p>Posted by {{username}} on {{createdAt}}</p>
+<h1>{{post.title}}</h1>
+<p>{{post.contents}}</p>
+<p>Posted by: {{post.user.username}} on {{post.createdAt}}</p>
 
-<div>
-  <h2>Comments</h2>
-  {{#each comments}}
-    <div>
-      <p>{{content}}</p>
-      <p>Commented by {{username}} on {{createdAt}}</p>
-    </div>
-  {{/each}}
-</div>
-
-{{#if user}}
+{{#if loggedIn}}
   <form action="/api/comments" method="POST">
-    <input type="hidden" name="post_id" value="{{id}}">
-    <textarea name="content" required></textarea>
+    <textarea name="comment"></textarea>
+    <input type="hidden" name="postId" value="{{post.id}}">
     <button type="submit">Submit Comment</button>
   </form>
-{{else}}
-  <p>You need to be logged in to comment.</p>
 {{/if}}
+
+{{#each post.comments}}
+  <div>
+    <p>{{this.contents}} - {{this.user.username}} on {{this.createdAt}}</p>
+  </div>
+{{/each}}
