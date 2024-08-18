@@ -5,6 +5,7 @@ const path = require('path');
 const userRoutes = require('./controllers/userController');
 const postRoutes = require('./controllers/postController');
 const commentRoutes = require('./controllers/commentController');
+const UserRoutes = require('./controllers/userController'); 
 const sequelize = require('./config/config');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { Post } = require('./models');

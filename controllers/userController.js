@@ -54,6 +54,15 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Dashboard route
+router.get('/dashboard', (req, res) => {
+  if (req.session.userId) {
+    res.render('dashboard'); // Render the dashboard view
+  } else {
+    res.redirect('/login'); // Redirect to login if not authenticated
+  }
+});
+
 // Route to get all users (for debugging or admin use)
 router.get('/', async (req, res) => {
   console.log('GET /api/users route hit'); // Debugging log
