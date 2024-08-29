@@ -1,45 +1,49 @@
-const User = require('./User');  // Ensure file names match
-const Post = require('./Post');
-const Comment = require('./Comment');
+// Import the User model from the User.js file
+const User = require("./User");
+// Import the Post model from the Post.js file
+const Post = require("./Post");
+// Import the Comment model from the Comment.js file
+const Comment = require("./Comment");
 
-// User has many Posts
+// Define relationships between models
+
+// A user can have many posts
 User.hasMany(Post, {
-  foreignKey: 'User_id',
-  onDelete: 'CASCADE',
+  foreignKey: "user_id",  // The foreign key in the Post model that references the User model
 });
 
-// Post belongs to User
-Post.belongsTo(User, {
-  foreignKey: 'User_id',
-  onDelete: 'CASCADE',
-});
-
-// Comment belongs to User
-Comment.belongsTo(User, {
-  foreignKey: 'User_id',
-  onDelete: 'CASCADE',
-});
-
-// Comment belongs to Post
-Comment.belongsTo(Post, {
-  foreignKey: 'Post_id',
-  onDelete: 'CASCADE',
-});
-
-// User has many Comments
+// A user can have many comments
 User.hasMany(Comment, {
-  foreignKey: 'User_id',
-  onDelete: 'CASCADE',
+  foreignKey: "user_id",  // The foreign key in the Comment model that references the User model
+  onDelete: "cascade",    // When a user is deleted, all related comments will be deleted as well
+  hooks: true,            // Enables hooks to handle cascading deletes automatically
 });
 
-// Post has many Comments
+// A post belongs to a single user
+Post.belongsTo(User, {
+  foreignKey: "user_id",  // The foreign key in the Post model that references the User model
+});
+
+// A post can have many comments
 Post.hasMany(Comment, {
-  foreignKey: 'Post_id',
-  onDelete: 'CASCADE',
+  foreignKey: "post_id",  // The foreign key in the Comment model that references the Post model
+  onDelete: "cascade",    // When a post is deleted, all related comments will be deleted as well
+  hooks: true,            // Enables hooks to handle cascading deletes automatically
 });
 
-module.exports = {
-  User,
-  Post,
-  Comment,
-};
+// A comment belongs to a single user
+Comment.belongsTo(User, {
+  foreignKey: "user_id",  // The foreign key in the Comment model that references the User model
+  onDelete: "cascade",    // When a user is deleted, all related comments will be deleted as well
+  hooks: true,            // Enables hooks to handle cascading deletes automatically
+});
+
+// A comment belongs to a single post
+Comment.belongsTo(Post, {
+  foreignKey: "post_id",  // The foreign key in the Comment model that references the Post model
+  onDelete: "cascade",    // When a post is deleted, all related comments will be deleted as well
+  hooks: true,            // Enables hooks to handle cascading deletes automatically
+});
+
+// Export the models and their relationships
+module.exports = { User, Post, Comment };
