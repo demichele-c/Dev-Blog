@@ -24,7 +24,7 @@ Post.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'user',  // Ensure this matches the table name for User
+        model: 'User',  // Ensure this matches the table name for User
         key: 'id',
       },
     },
@@ -34,7 +34,7 @@ Post.init(
     timestamps: true,       // Automatically add `createdAt` and `updatedAt` fields
     freezeTableName: true,  // Use the model name as the table name
     underscored: true,      // Use snake_case for column names
-    modelName: 'post',      // Model name (should be lowercase and match the model file name)
+    modelName: 'Post',      // Model name (should be lowercase and match the model file name)
   }
 );
 

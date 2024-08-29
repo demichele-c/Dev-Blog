@@ -1,12 +1,17 @@
-<h1>Your Dashboard</h1>
-<div>
-  <a href="/post/new">Create New Post</a>
-  {{#each posts}}
-    <article>
-      <h2><a href="/post/{{id}}">{{title}}</a></h2>
-      <p>{{content}}</p>
-      <a href="/post/edit/{{id}}">Edit</a>
-      <a href="/post/delete/{{id}}">Delete</a>
-    </article>
-  {{/each}}
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Dashboard</title>
+  <!-- Include other head elements like CSS links here -->
+</head>
+<body>
+  <h1>Your Dashboard</h1>
+  <div>
+  <a href="/api/posts/new">Create New Post</a> <!-- Updated link for creating a new post -->
+  </div>
+
+  <!-- Include client-side JavaScript -->
+
+</body>
+</html>

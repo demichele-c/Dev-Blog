@@ -7,7 +7,7 @@ const postRoutes = require('./controllers/postController');
 const commentRoutes = require('./controllers/commentController');
 const sequelize = require('./config/config');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const { Post, Comment, User } = require('./models'); // Ensure User and Comment are imported
+const { Post, Comment, User } = require('./models');
 const hasAuth = require('./utils/auth');
 
 const app = express();
@@ -24,7 +24,12 @@ app.use((req, res, next) => {
 // Session configuration
 const sess = {
   secret: 'Super secret secret',
-  cookie: {},
+  cookie: {
+    // Optional cookie settings
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    httpOnly: true, // Prevent client-side access to cookies
+    secure: process.env.NODE_ENV === 'production' // Only set cookies over HTTPS in production
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -69,19 +74,61 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/dashboard', hasAuth, async (req, res) => {
+app.get('/dashboard', async (req, res) => {
+  if (req.session.userId) {
+    try {
+      const posts = await Post.findAll({
+        where: { user_id: req.session.userId },
+        order: [['createdAt', 'DESC']] // Optional: Order posts by creation date
+      });
+      res.render('dashboard', { title: 'Dashboard', posts });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.redirect('/login'); // Redirect to login if user is not authenticated
+  }
+});
+
+// Route to render the new post form
+app.get('/post/new', hasAuth, (req, res) => {
+  console.log('GET /post/new route hit');
+
+  // Check if the session has a userId
+  if (!req.session.userId) {
+    console.log('User not logged in, redirecting to /login');
+    return res.redirect('/login');
+  }
+
+  console.log('User is logged in, rendering new-post page');
+  
   try {
-    const posts = await Post.findAll({
-      where: { userId: req.session.userId }
-    });
-    res.render('dashboard', { 
-      posts,
+    res.render('new-post', {
       loggedIn: req.session.userId ? true : false,
-      title: 'Dashboard',
+      title: 'New Post'
     });
+    console.log('Successfully rendered new-post page');
   } catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred while fetching dashboard posts.');
+    console.error('Error rendering new-post page:', error);
+    res.status(500).send('An error occurred while rendering the new post page.');
+  }
+});
+
+app.post('/post/new', hasAuth, async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    if (!title || !content) {
+      throw new Error('Title and content are required');
+    }
+    await Post.create({
+      title,
+      content,
+      user_id: req.session.userId,
+    });
+    res.redirect('/dashboard'); // Redirect to the dashboard after creating the post
+  } catch (error) {
+    console.error('Error creating new post:', error.message || error);
+    res.status(500).send(`An error occurred while creating the new post: ${error.message || error}`);
   }
 });
 
@@ -131,6 +178,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => console.log('Now listening on port ' + PORT));
 });
