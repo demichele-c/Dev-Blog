@@ -1,4 +1,3 @@
-// Import necessary modules and dependencies
 const router = require("express").Router(); // Router object from Express.js for handling routes
 const { Comment } = require("../../models"); // Comment model for database operations
 const withAuth = require("../../utils/auth"); // Middleware function to check authentication

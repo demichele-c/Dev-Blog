@@ -1,12 +1,30 @@
-<h1>Welcome {{name}} to Dev Blog</h1>
-
-<div>
-  {{#each posts}}
-    <article>
-      <h2><a href="/post/{{id}}">{{title}}</a></h2>
-      <p>{{content}}</p>
-      <p>Posted by {{username}} on {{createdAt}}</p>
-    </article>
+<header>
+  <h1>
+    Blog-This-Tech
+  </h1>
+</header>
+<ul class="post-list">
+  {{! for each post }}
+  {{#each posts as |post|}}
+    <li>
+      <article class="post">
+        <div class="title-strip">
+          <div class="title" id="blog-title">
+            {{! href with post.id }}
+            <a href="/post/{{post.id}}">{{post.title}}</a>
+          </div>
+          <div class="meta">
+            by
+            {{! show post creator}}
+            {{post.user.username}}
+            on
+            {{! show when post created }}
+            {{format_date post.created_at}}
+          </div>
+        </div>
+        {{! show post text (actual blog) }}
+        <div class="text">{{post.post_text}}</div>
+      </article>
+    </li>
   {{/each}}
-</div>
-
+</ul>

@@ -1,17 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Your Dashboard</title>
-  <!-- Include other head elements like CSS links here -->
-</head>
-<body>
-  <h1>Your Dashboard</h1>
-  <div>
-  <a href="/api/posts/new">Create New Post</a> <!-- Updated link for creating a new post -->
-  </div>
+<header>
+  <h1 id="dash-title">
+    Your Dashboard
+  </h1>
+</header>
 
-  <!-- Include client-side JavaScript -->
-
-</body>
-</html>
+<div class="new-post-btn">
+  <button id="new-post">+ New Post</button>
+</div>
+{{! if post exists }}
+{{#if posts.length}}
+  <section>
+    <ul>
+      {{! for each post }}
+      {{#each posts as |post|}}
+        <li class="edit-post">
+          <div class="edit-btn-styling">
+            <a
+              type="submit"
+              {{! change href based on post id }}
+              href="/dashboard/edit/{{post.id}}"
+              class="edit-btn-text"
+              {{! show post title }}
+            >{{post.title}}
+            </a>
+            {{! post created when }}
+            <div class="date-text">{{format_date post.created_at}}</div>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+{{/if}}
+{{! link to new-post.js }}
+<script src="/javascript/new-post.js"></script>

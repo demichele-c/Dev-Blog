@@ -1,27 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="/css/styles.css"> <!-- Link to your CSS file -->
-</head>
-<body>
-  <header>
-    <h1>Login</h1>
-  </header>
-  <main>
-    <form id="login-form">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+<header>
+  <h1>
+    Blog-This-Tech
+  </h1>
+</header>
+<form class="login-form">
+  <div class="multi-form">
+    <div>
+      <h2 class="subtitle">Login</h2>
+    </div>
+    <div class="form-style">
+      <div>
+        <label for="username-login">Username</label>
+        <input type="text" class="input-style" id="username-login" />
+      </div>
+      <div>
+        <label for="password-login">Password</label>
+        <input type="password" class="input-style" id="password-login" />
+      </div>
+      <div>
+        <button type="submit">Login!</button>
+      </div>
+      <div>
+        <a id="return-link" href="/signup">Sign up instead</a>
+      </div>
+    </div>
+  </div>
+</form>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="/register">Register here</a></p>
-  </main>
-  <script src="/js/login.js"></script> <!-- Link to your JavaScript file for handling login -->
-</body>
-</html>
+<script src="/js/login.js"></script>

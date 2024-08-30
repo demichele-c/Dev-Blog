@@ -1,4 +1,3 @@
-// Import necessary modules and dependencies
 const router = require("express").Router(); // Router object from Express.js for handling routes
 const sequelize = require("../../config/connection"); // Sequelize instance for database connection
 const { Post, User, Comment } = require("../../models"); // Importing models: Post, User, and Comment

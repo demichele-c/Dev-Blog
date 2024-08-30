@@ -1,10 +1,15 @@
-const hasAuth = (req, res, next) => {
-    console.log("Req Session Obj: ", req.session);
-    if (!req.session.userId) {
-        res.redirect('/login');
+// Middleware function to protect routes from unauthorized access
+const withAuth = (req, res, next) => {
+    // Check if user is authenticated by verifying the existence of a user_id in the session
+    if (!req.session.user_id) {
+      // If user is not authenticated, redirect to the login page
+      res.redirect("/login");
     } else {
-        next();
+      // If user is authenticated, allow the request to proceed to the next middleware or route handler
+      next();
     }
-};
-
-module.exports = hasAuth;
+  };
+  
+  // Export the middleware function for use in other parts of the application
+  module.exports = withAuth;
+  

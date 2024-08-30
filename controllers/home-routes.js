@@ -1,4 +1,3 @@
-//-----Import Dependencies----
 // Import the Router object from Express.js for handling routes
 const router = require("express").Router();
 // Import Sequelize connection configuration

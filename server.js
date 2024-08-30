@@ -1,52 +1,44 @@
-const path = require("path"); // Provides utilities for working with file and directory paths
-const express = require("express"); // Web framework for building server-side applications
-const session = require("express-session"); // Middleware for managing sessions
-const exphbs = require("express-handlebars"); // Handlebars view engine for rendering templates
+// Import dependencies
+const path = require('path'); // Core Node.js module for handling file paths
+const express = require('express'); // Express framework for building web applications
+const session = require('express-session'); // Middleware for session handling
+const SequelizeStore = require('express-session-sequelize')(session.Store); // Store sessions in a Sequelize database
+const sequelize = require('./config/connection'); // Database connection configuration
+const exphbs = require('express-handlebars'); // Templating engine for rendering HTML
+const hbsHelpers = require('./utils/helpers'); // Custom Handlebars helpers
 
-// Create an instance of Express
-const app = express(); // Initializes the Express application
+// Initialize app
+const app = express(); // Create an instance of an Express application
+const PORT = process.env.PORT || 3001; // Define the port the server will listen on
 
-// PORT variable for listener
-const PORT = process.env.PORT || 3001; // Use the environment variable PORT or default to 3001
-
-// Other imports
-const sequelize = require("./config/connection"); // Import Sequelize instance for database connection
-const SequelizeStore = require("connect-session-sequelize")(session.Store); // Integrates Sequelize with session store
-
-// Configuration for session management
+// Session configuration
 const sess = {
-  secret: process.env.SESSION_SECRET || 'default_secret', // Secret key for signing session cookies
-  cookie: {}, // Session cookie settings (empty by default)
-  resave: false, // Prevents session from being saved back to the store if unmodified
-  saveUninitialized: true, // Save new sessions to the store
+  secret: process.env.SESSION_SECRET || 'default_secret', // Secret for signing the session ID cookie
+  cookie: {}, // Configuration for cookies (can add options like maxAge, secure, etc.)
+  resave: false, // Prevents session from being saved back to the store if it wasn't modified
+  saveUninitialized: true, // Save new sessions that haven't been modified
   store: new SequelizeStore({
-    db: sequelize, // Use the Sequelize instance for storing session data
+    db: sequelize, // Use Sequelize to store session data
   }),
 };
 
-// Apply session middleware to Express
-app.use(session(sess)); // Initializes and configures session handling
+// Use session middleware
+app.use(session(sess)); // Integrates session handling into the Express app
 
-// Import custom helpers for Handlebars
-const helpers = require("./utils/helpers"); // Custom helper functions for Handlebars templates
+// Set up Handlebars as the default template engine
+const hbs = exphbs.create({ helpers: hbsHelpers }); // Initialize Handlebars with custom helpers
+app.engine('handlebars', hbs.engine); // Register Handlebars as the view engine
+app.set('view engine', 'handlebars'); // Set Handlebars as the default view engine
 
-// Create a Handlebars instance with custom helpers
-const hbs = exphbs.create({ helpers }); // Initialize Handlebars with custom helpers
+// Other middleware
+app.use(express.json()); // Middleware to parse incoming JSON requests
+app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-encoded requests (form data)
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the 'public' directory
 
-// Set Handlebars as the default template engine
-app.engine("handlebars", hbs.engine); // Register Handlebars engine
-app.set("view engine", "handlebars"); // Set the default view engine to Handlebars
+// Routes
+app.use(require('./controllers/')); // Use the routes defined in the 'controllers' directory
 
-// Middleware configuration
-app.use(express.json()); // Parse incoming JSON request bodies
-app.use(express.urlencoded({ extended: false })); // Parse incoming URL-encoded request bodies
-app.use(express.static(path.join(__dirname, "public"))); // Serve static files from 'public' directory
-
-// Use routes defined in controllers
-app.use(require("./controllers/")); // Mounts the routes defined in the controllers folder
-
-// Sync Sequelize models with the database and start the server
-sequelize.sync({ force: true }).then(() => {
-  // Start listening on the specified port
-  app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
+// Sync sequelize and start server
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log(`Now listening on port ${PORT}`)); // Start the server after syncing the database
 });

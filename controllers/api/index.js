@@ -1,4 +1,3 @@
-// Import the necessary modules and dependencies
 const router = require("express").Router(); // Importing the Router object from Express.js to handle routes
 
 // Import route modules for different functionalities
