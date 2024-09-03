@@ -40,5 +40,9 @@ app.use(require('./controllers/')); // Use the routes defined in the 'controller
 
 // Sync sequelize and start server
 sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => console.log(`Now listening on port ${PORT}`)); // Start the server after syncing the database
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}).catch(err => {
+  console.error('Unable to connect to the database:', err);
 });
