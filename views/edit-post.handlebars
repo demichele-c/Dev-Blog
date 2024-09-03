@@ -1,53 +1,80 @@
-<!-- Header Section -->
-<header class="gradient-header">
-   <h1 class="center-align teal-text text-darken-2">
-      Edit or Delete Post
-    </h1>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Post</title>
+  <!-- Link to Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Link to custom stylesheet -->
+  <link rel="stylesheet" href="/public/styles/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .card-post {
+      margin-bottom: 20px;
+    }
 
-<!-- Edit Post Form -->
-<article class="container">
-  <form class="col s12 edit-post-form">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Edit Post</span>
-        <div class="input-field">
-          <input
-            id="post-title"
-            name="post-title"
-            type="text"
-            value="{{post.title}}"
-            class="validate"
-          />
-          <label for="post-title">Title</label>
-        </div>
-        <div class="input-field">
-          <textarea
-            id="post-text"
-            name="post-text"
-            class="materialize-textarea"
-          >{{post.post_text}}</textarea>
-          <label for="post-text">Content</label>
-        </div>
-      </div>
-      <div class="card-action">
-        <button type="submit" class="btn waves-effect waves-light">
-          Update Post
-        </button>
-        <button
-          type="button"
-          class="btn red waves-effect waves-light delete-post-btn"
-        >
-          Delete
-        </button>
-        <a href="/dashboard" class="btn-flat">← Return to Dashboard</a>
-      </div>
+    .card-post:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="gradient-header">
+    <div class="card-panel z-depth-1" style="background: none; box-shadow: none;">
+      <h1 class="center-align teal-text text-darken-2">
+        Edit or Delete Post
+      </h1>
     </div>
-  </form>
-</article>
+  </header>
 
-<!-- Materialize JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<!-- Custom JS -->
-<script src="/js/edit-post.js"></script>
-<script src="/js/delete-post.js"></script>
+  <!-- Edit Post Form -->
+  <article class="container">
+    <form class="col s12 edit-post-form">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Edit Post</span>
+          <div class="input-field">
+            <input
+              id="post-title"
+              name="post-title"
+              type="text"
+              value="{{post.title}}"
+              class="validate"
+            />
+            <label for="post-title">Title</label>
+          </div>
+          <div class="input-field">
+            <textarea
+              id="post-text"
+              name="post-text"
+              class="materialize-textarea"
+            >{{post.post_text}}</textarea>
+            <label for="post-text">Content</label>
+          </div>
+        </div>
+        <div class="card-action">
+          <button type="submit" class="btn waves-effect waves-light">
+            Update Post
+          </button>
+          <button
+            type="button"
+            class="btn red waves-effect waves-light delete-post-btn"
+          >
+            Delete
+          </button>
+          <a href="/dashboard" class="btn-flat">← Return to Dashboard</a>
+        </div>
+      </div>
+    </form>
+  </article>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Custom JS -->
+  <script src="/js/edit-post.js"></script>
+  <script src="/js/delete-post.js"></script>
+</body>
+</html>
