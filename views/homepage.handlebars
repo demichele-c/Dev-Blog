@@ -1,43 +1,77 @@
-<!-- Header Section -->
-<header class="gradient-header">
-  <div class="card-panel z-depth-1" style="background: none; box-shadow: none;">
-    <h1 class="center-align teal-text text-darken-2">
-      Welcome to Dev-Blog!
-    </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev-Blog</title>
+  <!-- Link to Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Link to custom stylesheet -->
+  <link rel="stylesheet" href="/public/styles/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .post {
+      margin-bottom: 20px;
+    }
+
+    .post:nth-child(odd) {
+      transform: translateX(-10px);
+    }
+
+    .post:nth-child(even) {
+      transform: translateX(10px);
+    }
+
+    @media only screen and (max-width: 600px) {
+      .post {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="gradient-header">
+    <div class="card-panel z-depth-1" style="background: none; box-shadow: none;">
+      <h1 class="center-align teal-text text-darken-2">
+        Welcome to Dev-Blog!
+      </h1>
+    </div>
+  </header>
+
+  <!-- Post List -->
+  <div class="container">
+    <div class="row">
+      {{#each posts as |post|}}
+        <div class="col s12 m6">
+          <div class="card hoverable">
+            <div class="card-content">
+              <span class="card-title">
+                <a href="/post/{{post.id}}" class="teal-text text-darken-3" style="font-size: 2rem; font-weight: bold;">
+                  {{post.title}}
+                </a>
+              </span>
+              <p class="grey-text text-darken-2">
+                by {{post.user.username}} on {{format_date post.created_at}}
+              </p>
+              <p>
+                <strong>{{post.post_text}}</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
   </div>
-</header>
 
-<!-- Post List -->
-<div class="container">
-  <ul class="collection">
-    {{#each posts as |post|}}
-      <li class="collection-item">
-        <article class="post">
-          <div class="title-strip">
-            <div class="title">
-              <a href="/post/{{post.id}}" class="teal-text text-darken-3" style="font-size: 2rem; font-weight: bold;">
-                {{post.title}}
-              </a>
-            </div>
-            <div class="meta">
-              by
-              <span class="grey-text text-darken-2">
-                {{post.user.username}}
-              </span>
-              on
-              <span class="grey-text text-darken-1">
-                {{format_date post.created_at}}
-              </span>
-            </div>
-          </div>
-          <div class="text">
-            <strong>{{post.post_text}}</strong>
-          </div>
-        </article>
-      </li>
-    {{/each}}
-  </ul>
-</div>
-
-<!-- Materialize JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Import Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Initialize the sidenav for mobile menu
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(elems);
+    });
+  </script>
+</body>
+</html>
