@@ -1,7 +1,7 @@
 <div class="comments">
   {{!-- For each posted comment --}}
   {{#each this}}
-    <section class="card">
+    <section class="card" data-logged-in="{{#if loggedIn}}true{{else}}false{{/if}}">
       <!-- Comment Container -->
       <div class="card-content">
         <span class="card-title">
@@ -14,6 +14,10 @@
         <p class="comment-text">
           <strong>{{comment_text}}</strong>
         </p>
+        <!-- Delete Button -->
+        <button class="delete-comment btn red darken-2" data-id="{{id}}">
+          Delete
+        </button>
       </div>
     </section>
   {{/each}}
