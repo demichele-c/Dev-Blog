@@ -1,38 +1,90 @@
-<!-- Header Section -->
-    <header class="gradient-header">
-    <h1 class="center-align teal-text text-darken-2">
-      Your Dashboard
-    </h1>
-    </header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev-Blog Dashboard</title>
+  <!-- Link to Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Link to custom stylesheet -->
+  <link rel="stylesheet" href="/public/styles/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
 
-    <!-- New Post Button -->
-    <div class="container center-align">
-      <a id="new-post" class="waves-effect waves-light btn-large">+ New Post</a>
+    .card-post {
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+
+    .card-post:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .card-content a {
+      font-size: 1.5rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .card-content a {
+        font-size: 1.2rem;
+      }
+
+      .gradient-header {
+        padding: 8px 0;
+      }
+
+      .card-post {
+        margin-bottom: 5px;
+        padding: 10px;
+      }
+
+      .container {
+        padding: 0 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="gradient-header">
+    <div class="card-panel z-depth-1" style="background: none; box-shadow: none;">
+      <h1 class="center-align teal-text text-darken-2">
+        Your Dashboard
+      </h1>
     </div>
+  </header>
 
-    <!-- Posts Section -->
-    {{#if posts.length}}
-      <section class="container">
-        <ul class="collection">
-          {{#each posts as |post|}}
-            <li class="collection-item">
-              <div class="row">
-                <div class="col s12">
-                  <a href="/dashboard/edit/{{post.id}}" class="collection-item teal-text text-darken-3" style="font-size: 2rem; font-weight: bold;">
-                    {{post.title}}
-                    <span class="right">{{format_date post.created_at}}</span>
-                  </a>
-                </div>
+  <!-- New Post Button -->
+  <div class="container center-align">
+    <a id="new-post" class="waves-effect waves-light btn-large teal lighten-1">+ New Post</a>
+  </div>
+
+  <!-- Posts Section -->
+  {{#if posts.length}}
+    <section class="container">
+      <ul class="collection">
+        {{#each posts as |post|}}
+          <li class="collection-item">
+            <div class="card card-post">
+              <div class="card-content">
+                <a href="/dashboard/edit/{{post.id}}" class="teal-text text-darken-3" style="font-size: 1.5rem; font-weight: bold;">
+                  {{post.title}}
+                </a>
+                <p class="grey-text text-darken-1 right-align">
+                  {{format_date post.created_at}}
+                </p>
               </div>
-            </li>
-          {{/each}}
-        </ul>
-      </section>
-    {{/if}}
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </section>
+  {{/if}}
 
-    <!-- Materialize JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Custom JS -->
-    <script src="/js/new-post.js"></script>
-  </body>
+  <!-- Import Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Custom JS -->
+  <script src="/js/new-post.js"></script>
+</body>
 </html>
