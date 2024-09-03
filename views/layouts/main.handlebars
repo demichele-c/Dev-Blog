@@ -1,45 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dev-Blog</title>
-    <!-- Link to Materialize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Link to custom stylesheet -->
-    <link rel="stylesheet" href="/public/styles/styles.css">
-  </head>
-  <body>
-    <!-- Header -->
-    <header>
-      <nav class="nav-extended">
-        <div class="nav-wrapper">
-          <a href="/" class="brand-logo">Dev-Blog</a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="/">Home</a></li>
-            <li><a href="/dashboard">Dashboard</a></li>
-            {{!-- If logged in, show logout button; if logged out, show login button --}}
-            {{#if loggedIn}}
-              <li><a id="logout" class="btn waves-effect waves-light">Logout</a></li>
-            {{else}}
-              <li><a href="/login" class="btn waves-effect waves-light">Login</a></li>
-            {{/if}}
-          </ul>
-        </div>
-      </nav>
-    </header>
-    
-    <!-- Main content -->
-    <main class="container">
-      {{{body}}}
-    </main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev-Blog</title>
+  <!-- Link to Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Link to custom stylesheet -->
+  <link rel="stylesheet" href="/public/styles/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="gradient-header">
+    <nav>
+      <div class="nav-wrapper container">
+        <!-- Mobile Menu Button -->
+        <a href="#" data-target="mobile-menu" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <a href="/" class="brand-logo">Dev-Blog</a>
+        <!-- Desktop Menu -->
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          {{#if loggedIn}}
+            <li><a id="logout" class="btn waves-effect waves-light">Logout</a></li>
+          {{else}}
+            <li><a href="/login" class="btn waves-effect waves-light">Login</a></li>
+          {{/if}}
+        </ul>
+      </div>
+      <!-- Mobile Menu -->
+      <ul class="sidenav" id="mobile-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        {{#if loggedIn}}
+          <li><a id="logout" class="btn waves-effect waves-light">Logout</a></li>
+        {{else}}
+          <li><a href="/login" class="btn waves-effect waves-light">Login</a></li>
+        {{/if}}
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Import Materialize JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
-    {{!-- If logged in, include logout functionality --}}
-    {{#if loggedIn}}
-      <script src="/js/logout.js"></script>
-    {{/if}}
-  </body>
+  <!-- Main content -->
+  <main class="container">
+    {{{body}}}
+  </main>
+
+  <!-- Import Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Initialize the sidenav for mobile menu
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(elems);
+    });
+  </script>
+  
+  {{#if loggedIn}}
+    <script src="/js/logout.js"></script>
+  {{/if}}
+</body>
 </html>

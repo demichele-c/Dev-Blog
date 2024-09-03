@@ -1,54 +1,53 @@
 <!-- Header Section -->
-    <header class="container">
-      <h1 class="center-align" id="dash-title">
-        Your Dashboard
-      </h1>
-    </header>
+<header class="gradient-header">
+   <h1 class="center-align teal-text text-darken-2">
+      Edit or Delete Post
+    </h1>
+</header>
 
-    <!-- Edit Post Form -->
-    <article class="container">
-      <form class="col s12" action="/update-post" method="POST">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Edit Post</span>
-            <div class="input-field">
-              <input
-                id="post-title"
-                name="post-title"
-                type="text"
-                value="{{post.title}}"
-                class="validate"
-              />
-              <label for="post-title">Title</label>
-            </div>
-            <div class="input-field">
-              <textarea
-                id="post-text"
-                name="post-text"
-                class="materialize-textarea"
-              >{{post.post_text}}</textarea>
-              <label for="post-text">Content</label>
-            </div>
-          </div>
-          <div class="card-action">
-            <button type="submit" class="btn waves-effect waves-light">
-              Update Post
-            </button>
-            <button
-              type="button"
-              class="btn red waves-effect waves-light"
-              id="delete-post-btn"
-            >
-              Delete
-            </button>
-            <a href="/dashboard" class="btn-flat">← Return to Dashboard</a>
-          </div>
+<!-- Edit Post Form -->
+<article class="container">
+  <form class="col s12 edit-post-form">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Edit Post</span>
+        <div class="input-field">
+          <input
+            id="post-title"
+            name="post-title"
+            type="text"
+            value="{{post.title}}"
+            class="validate"
+          />
+          <label for="post-title">Title</label>
         </div>
-      </form>
-    </article>
+        <div class="input-field">
+          <textarea
+            id="post-text"
+            name="post-text"
+            class="materialize-textarea"
+          >{{post.post_text}}</textarea>
+          <label for="post-text">Content</label>
+        </div>
+      </div>
+      <div class="card-action">
+        <button type="submit" class="btn waves-effect waves-light">
+          Update Post
+        </button>
+        <button
+          type="button"
+          class="btn red waves-effect waves-light delete-post-btn"
+        >
+          Delete
+        </button>
+        <a href="/dashboard" class="btn-flat">← Return to Dashboard</a>
+      </div>
+    </div>
+  </form>
+</article>
 
-    <!-- Materialize JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Custom JS -->
-    <script src="/js/edit-post.js"></script>
-    <script src="/js/delete-post.js"></script>
+<!-- Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- Custom JS -->
+<script src="/js/edit-post.js"></script>
+<script src="/js/delete-post.js"></script>
