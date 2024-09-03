@@ -14,7 +14,9 @@ const PORT = process.env.PORT || 3001; // Define the port the server will listen
 // Session configuration
 const sess = {
   secret: process.env.SESSION_SECRET || 'default_secret', // Secret for signing the session ID cookie
-  cookie: {}, // Configuration for cookies (can add options like maxAge, secure, etc.)
+  cookie: {
+    maxAge: 5 * 60 * 1000, // 5 minutes in milliseconds. logs user out if no activity
+  },
   resave: false, // Prevents session from being saved back to the store if it wasn't modified
   saveUninitialized: true, // Save new sessions that haven't been modified
   store: new SequelizeStore({
