@@ -1,34 +1,45 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> Dev-Blog<title>
-    {{! link to stylesheet }}
-    <link rel="stylesheet" href="/css/style.css" />
+    <title>Dev-Blog</title>
+    <!-- Link to Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Link to custom stylesheet -->
+    <link rel="stylesheet" href="/public/styles/styles.css">
   </head>
   <body>
-    <div>
-      <header>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/dashboard">Dashboard</a>
-          {{! if logged in, logout button, if logged out, show login button }}
-          {{#if loggedIn}}
-            <a id="logout" class="btn-nav">Logout</a>
-          {{else}}
-            <a href="/login">Login</a>
-          {{/if}}
-        </nav>
-      </header>
-      {{! other views here }}
-      <main>
-        {{{body}}}
-      </main>
-    </div>
+    <!-- Header -->
+    <header>
+      <nav class="nav-extended">
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo">Dev-Blog</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            {{!-- If logged in, show logout button; if logged out, show login button --}}
+            {{#if loggedIn}}
+              <li><a id="logout" class="btn waves-effect waves-light">Logout</a></li>
+            {{else}}
+              <li><a href="/login" class="btn waves-effect waves-light">Login</a></li>
+            {{/if}}
+          </ul>
+        </div>
+      </nav>
+    </header>
+    
+    <!-- Main content -->
+    <main class="container">
+      {{{body}}}
+    </main>
 
-    {{! if logged in, logout functionality for button needed }}
+    <!-- Import Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    {{!-- If logged in, include logout functionality --}}
     {{#if loggedIn}}
-      <script src="/javascript/logout.js"></script>
+      <script src="/js/logout.js"></script>
     {{/if}}
   </body>
 </html>

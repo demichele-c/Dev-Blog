@@ -1,35 +1,38 @@
-<header>
-  <h1 id="dash-title">
-    Your Dashboard
-  </h1>
-</header>
+<!-- Header Section -->
+    <header class="container">
+      <h1 class="center-align" id="dash-title">
+        Your Dashboard
+      </h1>
+    </header>
 
-<div class="new-post-btn">
-  <button id="new-post">+ New Post</button>
-</div>
-{{! if post exists }}
-{{#if posts.length}}
-  <section>
-    <ul>
-      {{! for each post }}
-      {{#each posts as |post|}}
-        <li class="edit-post">
-          <div class="edit-btn-styling">
-            <a
-              type="submit"
-              {{! change href based on post id }}
-              href="/dashboard/edit/{{post.id}}"
-              class="edit-btn-text"
-              {{! show post title }}
-            >{{post.title}}
-            </a>
-            {{! post created when }}
-            <div class="date-text">{{format_date post.created_at}}</div>
-          </div>
-        </li>
-      {{/each}}
-    </ul>
-  </section>
-{{/if}}
-{{! link to new-post.js }}
-<script src="/javascript/new-post.js"></script>
+    <!-- New Post Button -->
+    <div class="container center-align">
+      <a id="new-post" class="waves-effect waves-light btn-large">+ New Post</a>
+    </div>
+
+    <!-- Posts Section -->
+    {{#if posts.length}}
+      <section class="container">
+        <ul class="collection">
+          {{#each posts as |post|}}
+            <li class="collection-item">
+              <div class="row">
+                <div class="col s12">
+                  <a href="/dashboard/edit/{{post.id}}" class="collection-item">
+                    {{post.title}}
+                    <span class="right">{{format_date post.created_at}}</span>
+                  </a>
+                </div>
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+      </section>
+    {{/if}}
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/new-post.js"></script>
+  </body>
+</html>

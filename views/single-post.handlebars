@@ -1,47 +1,43 @@
-<header>
-  <h1>
-    Blog-This-Tech
-  </h1>
-</header>
-<article class="post" id="single-post">
-  <div class="title-strip">
-    <div class="title" id="blog-title">
-      {{!-- link to post by post id --- post title displayed to screen --}}
-      <a href="/post/{{post.id}}">{{post.title}}</a>
+ <!-- Header Section -->
+  <header class="container">
+    <h1 class="center-align teal-text text-darken-2">Dev-Blog</h1>
+  </header>
+
+  <!-- Single Post Article -->
+  <article class="container post card-panel z-depth-3" id="single-post">
+    <div class="title-strip">
+      <div class="title">
+        <!-- Link to post by post id -->
+        <a href="/post/{{post.id}}" class="teal-text text-darken-2">{{post.title}}</a>
+      </div>
+      <div class="meta grey-text text-darken-1">
+        by {{post.user.username}} on {{format_date post.created_at}}
+      </div>
     </div>
-    <div class="meta">
-      by
-      {{!-- uses your username when commenting on post --}}
-      {{post.user.username}}
-      on
-      {{!-- automatic post date created and formatted --}}
-      {{format_date post.created_at}}
+    <div class="text">
+      {{post.post_text}}
     </div>
+  </article>
+
+  <!-- Comment Form (visible if logged in) -->
+  {{#if loggedIn}}
+  <div class="container">
+    <form class="comment-form card-panel z-depth-2">
+      <div class="input-field">
+        <textarea id="comment-area" name="comment-body" class="materialize-textarea"></textarea>
+        <label for="comment-area">Comment</label>
+      </div>
+      <button type="submit" class="btn waves-effect waves-light teal darken-2">Submit</button>
+    </form>
   </div>
-  <div class="text">{{post.post_text}}</div>
-</article>
+  {{/if}}
 
-{{!-- can only comment if logged in --}}
-{{#if loggedIn}}
-  <div class="title-strip" id="empty-strip">
-  </div>
-  <form class="comment-form">
+  <!-- Comments Partial -->
+  {{> comments post.comments}}
 
-    <div>
-      <label for="comment-body">Comment</label>
-      <textarea name="comment-body" id="comment-area"></textarea>
-    </div>
-    <div>
-      <button type="submit">Submit</button>
-    </div>
-  </form>
-{{/if}}
-
-{{!-- links to comments in partials --- shows existing comments for post --}}
-{{> comments post.comments}}
-
-{{!-- only need comment button functionality if logged in --}}
-{{#if loggedIn}}
-{{!-- link to comment.js --}}
-  <script src="/javascript/comment.js"></script>
-{{/if}}
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Custom JS (comment functionality if logged in) -->
+  {{#if loggedIn}}
+  <script src="/js/comment.js"></script>
+  {{/if}}

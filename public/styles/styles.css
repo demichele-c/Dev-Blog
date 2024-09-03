@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Styles */
+@layer base {
+  /* Global Styling */
+  * {
+    box-sizing: border-box;
+  }
+  body,
+  html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #cadac8;
+    color: rgb(36, 36, 36);
+  }
+  input {
+    padding: 0.5%;
+  }
+  textarea {
+    padding: 0.5%;
+    line-height: 150%;
+    margin: 5px 0 10px 0;
+    border: 3px solid rgb(73, 150, 226);
+    width: 99.99%;
+  }
+  textarea:focus,
+  input:focus {
+    outline: none;
+    border: 1px solid #e0dec0;
+  }
+  ul {
+    list-style-type: none;
+  }
+}
+
+@layer components {
+  /* Form Styling */
+  .multi-form {
+    @apply mx-auto w-[95%] border-4 border-black;
+  }
+  .subtitle {
+    @apply m-0 p-2 text-[#cadac8] bg-black text-lg font-normal;
+  }
+  .form-style {
+    @apply m-2 w-[98%];
+  }
+  button {
+    @apply mb-1 p-2 w-[99.99%] text-[#cadac8] bg-[#4d4e50] text-xl rounded-lg transition-colors cursor-pointer;
+  }
+  button:hover {
+    @apply text-[#4996e2] font-bold;
+  }
+  #return-link {
+    @apply my-2 text-[#1c02ff];
+  }
+  #return-link:hover {
+    @apply font-bold;
+  }
+
+  /* Header Styling */
+  header {
+    @apply bg-black flex flex-col;
+  }
+  header h1 {
+    @apply ml-12 p-2 bg-[#cadac8] text-2xl font-[Trebuchet MS], Arial, sans-serif rounded-lg shadow-[5px_5px_lightslategrey];
+  }
+  nav {
+    @apply mt-4;
+  }
+  a {
+    @apply ml-12 no-underline text-[#cadac8] transition-colors;
+  }
+  a:hover {
+    @apply text-lightslategrey;
+  }
+
+  /* Login Page Styling */
+  .input-style {
+    @apply mx-auto mb-2 w-[99.99%];
+  }
+
+  /* Home Page Styling */
+  .post {
+    @apply mx-auto mb-2 border-4 border-black w-[95%];
+  }
+  .title-strip {
+    @apply bg-black h-12 flex justify-between;
+  }
+  #blog-title {
+    @apply mx-auto text-lg text-[#cadac8];
+  }
+  .text {
+    @apply leading-relaxed p-2;
+  }
+  .meta {
+    @apply mx-auto text-[#cadac8];
+  }
+
+  /* Dashboard Styling */
+  #dash-title {
+    @apply w-[245px];
+  }
+  #new-post {
+    @apply text-xs font-normal;
+  }
+  #post-title {
+    @apply my-1 border-3 border-[#4996e2] w-[99.99%];
+  }
+  .edit-btn-text {
+    @apply ml-4 w-full;
+  }
+  .date-text {
+    @apply mr-4;
+  }
+  .edit-btn-styling {
+    @apply mb-4 p-2 w-[97.5%] text-[#cadac8] bg-[#4d4e50] transition-colors cursor-pointer rounded-lg flex justify-between;
+  }
+  .new-post-btn {
+    @apply my-12 flex justify-center;
+  }
+  #new-post {
+    @apply w-[150px] text-lg bg-black;
+  }
+
+  /* Single Post Styling */
+  #single-post {
+    @apply my-5 mx-12 w-[93.5%];
+  }
+  #empty-strip {
+    @apply w-[93.5%] ml-12;
+  }
+  .comment-form {
+    @apply p-2 ml-12 border-4 border-black w-[93.5%];
+  }
+  #comment-area {
+    @apply h-20;
+  }
+  #comment-form-container {
+    @apply my-0 mx-12 w-[93.5%] min-h-[150px];
+  }
+  #comment-text-style {
+    @apply mt-10;
+  }
+  #user-name {
+    @apply mt-5;
+  }
+}

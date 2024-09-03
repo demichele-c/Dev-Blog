@@ -1,30 +1,41 @@
-<header>
-  <h1>
-    Blog-This-Tech
-  </h1>
-</header>
-<ul class="post-list">
-  {{! for each post }}
-  {{#each posts as |post|}}
-    <li>
-      <article class="post">
-        <div class="title-strip">
-          <div class="title" id="blog-title">
-            {{! href with post.id }}
-            <a href="/post/{{post.id}}">{{post.title}}</a>
-          </div>
-          <div class="meta">
-            by
-            {{! show post creator}}
-            {{post.user.username}}
-            on
-            {{! show when post created }}
-            {{format_date post.created_at}}
-          </div>
-        </div>
-        {{! show post text (actual blog) }}
-        <div class="text">{{post.post_text}}</div>
-      </article>
-    </li>
-  {{/each}}
-</ul>
+<!-- Header Section -->
+    <header class="container">
+      <h1 class="center-align">
+        Welcome to Dev-Blog!
+      </h1>
+    </header>
+
+    <!-- Post List -->
+    <div class="container">
+      <ul class="collection">
+        {{#each posts as |post|}}
+          <li class="collection-item">
+            <article class="post">
+              <div class="title-strip">
+                <div class="title">
+                  <a href="/post/{{post.id}}" class="teal-text text-darken-3">
+                    {{post.title}}
+                  </a>
+                </div>
+                <div class="meta">
+                  by
+                  <span class="grey-text text-darken-2">
+                    {{post.user.username}}
+                  </span>
+                  on
+                  <span class="grey-text text-darken-1">
+                    {{format_date post.created_at}}
+                  </span>
+                </div>
+              </div>
+              <div class="text">
+                {{post.post_text}}
+              </div>
+            </article>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

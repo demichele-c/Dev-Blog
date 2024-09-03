@@ -1,31 +1,32 @@
-<header>
-  <h1 id="dash-title">
-    Your Dashboard
-  </h1>
-</header>
-<section>
-  <form class="new-post-form">
-    <div class="multi-form" id="new-post-strip">
-      <div class="subtitle" id="new-post-form">
-        <h2>Create New Post</h2>
-      </div>
-      <div class="form-style">
-        <div>
-          <label for="post-title">Title</label>
-          <input type="text" id="post-title" name="post-title" />
-        </div>
-        <div>
-          <label for="post-text"> Content</label>
-          <textarea id="post-text" name="post-text"></textarea>
-        </div>
-        <button type="submit" class="btn">Create</button>
-      </div>
-      {{! &larr  = <--  + Return to dashboard link}}
-      <a href="/dashboard" id="return-link"> &larr; Return to dashboard</a>
-    </div>
+ <!-- Header Section -->
+    <header class="container">
+      <h1 class="center-align teal-text text-darken-2" id="dash-title">
+        Your Dashboard
+      </h1>
+    </header>
 
-  </form>
-</section>
+    <!-- New Post Form -->
+    <section class="container">
+      <form class="new-post-form">
+        <div class="card-panel z-depth-3">
+          <h2 class="center-align teal-text text-darken-2">Create New Post</h2>
+          <div class="input-field">
+            <input type="text" id="post-title" name="post-title" />
+            <label for="post-title">Title</label>
+          </div>
+          <div class="input-field">
+            <textarea id="post-text" name="post-text" class="materialize-textarea"></textarea>
+            <label for="post-text">Content</label>
+          </div>
+          <button type="submit" class="btn waves-effect waves-light teal darken-2">Create</button>
+          <div class="center-align">
+            <a href="/dashboard" id="return-link" class="btn-flat teal-text text-darken-2">← Return to dashboard</a>
+          </div>
+        </div>
+      </form>
+    </section>
 
-{{! link to add-post.js }}
-<script src="/js/add-post.js"></script>
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/add-post.js"></script>
