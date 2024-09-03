@@ -10,6 +10,29 @@ Dev-Blog is a dynamic blogging platform designed to provide users with an engagi
 
 [Deployed Website](https://dev-blog-je23.onrender.com/)
 
+## Screenshots
+
+### Homepage
+
+![Homepage Screenshot](public/images/homepage.png)
+
+### Dashboard
+
+![Dashboard Screenshot](public/images/dashboard.png)
+
+### Edit and Delete
+
+![Edit Screenshot](public/images/edit.png)
+
+### Login
+
+![Login Screenshot](public/images/login.png)
+
+### Comment
+
+![Comment Screenshot](public/images/comment.png)
+
+
 ## Table of Contents
 
 - [Deployed Website](#deployed-website)
