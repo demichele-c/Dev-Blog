@@ -39,6 +39,6 @@ app.use(express.static(path.join(__dirname, 'public'))); // Serve static files f
 app.use(require('./controllers/')); // Use the routes defined in the 'controllers' directory
 
 // Sync sequelize and start server
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on port ${PORT}`)); // Start the server after syncing the database
 });
