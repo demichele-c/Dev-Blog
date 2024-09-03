@@ -12,7 +12,7 @@ Dev-Blog is a dynamic blogging platform designed to provide users with an engagi
 
 ## Table of Contents
 
-- [Deployed Website](#deployed website)
+- [Deployed Website](#deployed-website)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)

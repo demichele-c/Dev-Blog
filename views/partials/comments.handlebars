@@ -4,12 +4,15 @@
     <section class="card">
       <!-- Comment Container -->
       <div class="card-content">
-        <span class="card-title">{{!-- Show who commented and when --}}
-          <strong>- {{user.username}}</strong>, {{format_date created_at}}
+        <span class="card-title">
+          <!-- Show who commented and when -->
+          <strong class="comment-author" style="color: #ee6e73; font-size: 2rem; font-weight: bold;">
+            - {{user.username}}
+          </strong>, {{format_date created_at}}
         </span>
         <!-- Comment Text -->
         <p class="comment-text">
-          {{comment_text}}
+          <strong>{{comment_text}}</strong>
         </p>
       </div>
     </section>

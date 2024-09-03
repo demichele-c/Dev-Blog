@@ -10,14 +10,14 @@ Comment Section
     <div class="title-strip">
       <div class="title">
         <!-- Link to post by post id -->
-        <a href="/post/{{post.id}}" class="teal-text text-darken-2">{{post.title}}</a>
+        <a href="/post/{{post.id}}" class="teal-text text-darken-3" style="font-size: 2rem; font-weight: bold;">{{post.title}}</a>
       </div>
       <div class="meta grey-text text-darken-1">
         by {{post.user.username}} on {{format_date post.created_at}}
       </div>
     </div>
     <div class="text">
-      {{post.post_text}}
+      <strong>{{post.post_text}}</strong>
     </div>
   </article>
 
